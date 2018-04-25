@@ -12,8 +12,8 @@ class Content extends Component{
     }
     componentDidMount(){
         window.onhashchange = ()=>{
-            console.log(window.location.hash)
-            console.log('执行')
+            // console.log(window.location.hash)
+            // console.log('执行')
             this.setState({
                 hash:window.location.hash
             });
@@ -21,13 +21,13 @@ class Content extends Component{
     }
     componentDidUpdate() {
         window.onhashchange = ()=>{
-            console.log('componentDidUpdate')
-            console.log(window.location.hash)
+            // console.log('componentDidUpdate')
+            // console.log(window.location.hash)
         }
     }
     render () {
-        console.log('主要内容')
-        console.log(this)
+        // console.log('主要内容')
+        // console.log(this)
         // let o;
         // let {hash} = this.state;
         // console.log(hash)
@@ -46,7 +46,7 @@ class Content extends Component{
         //         break;
           
         // }
-        console.log()
+        
         return (
             <Router>
                 <div style={{ padding: 24, background: '#fff', minHeight: 360 }}>          

@@ -1,3 +1,5 @@
+## 本次项目是通过React+Redux+antdesign 搭建完成的后台监控项目 ，目前项目还在开发中，后期会不定时的更新本次项目...
+
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
 
 Below you will find some information on how to perform common tasks.<br>

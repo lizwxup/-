@@ -1,9 +1,11 @@
 import { createStore,combineReducers } from 'redux'
 
 import {cartReducer} from './cartProduct'
+import {formReducer} from './formStep'
 
 const allReducer = {
-    shoppingCart:cartReducer
+    shoppingCart:cartReducer,
+    formStep:formReducer
 } 
 
 const rootRouder = combineReducers(allReducer)

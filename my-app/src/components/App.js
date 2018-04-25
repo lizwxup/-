@@ -6,37 +6,63 @@ import {BrowserRouter as Router,Route,NavLink} from 'react-router-dom';
 import { Layout,Breadcrumb,Menu,Icon,Badge,Avatar   } from 'antd';
 import '../css/App.css';
 import IndexMain from '../container/index'
-import List from '../container/list'
-import Form from '../container/form'
-//import Slider from '../container/leftSlider'
-//import ContentMain from '../container/content'
-//import RouterIndex from '../router/index'
+import Routes from '../router/index'
 import {Input} from 'antd'
+import { menus } from '../constants/menus'
+import SiderMenu from './SliderMenu'
 const { Header, Content,Footer,Sider } = Layout;
 const SubMenu = Menu.SubMenu;
 const Search = Input.Search;
+
 class App extends Component {
     state = {
         collapsed: false,
+        mode: 'inline',
+        openKey: '',
+        selectedKey: '',
+        firstHide: true,   // 点击收缩菜单，第一次隐藏展开子菜单，openMenu时恢复
     };
     onCollapse = (collapsed) => {
       this.setState({ collapsed });
     }
-    handleRouterPush(path,e) {
-      this.props.history.push(path)
+
+    componentDidMount() {
+        this.setMenuOpen(this.props);
     }
-   
+    componentWillReceiveProps(nextProps) {
+        //console.log(nextProps);
+        this.onCollapse(nextProps.collapsed);
+
+    }
+    onCollapse = (collapsed) => {
+       // console.log(collapsed);
+        this.setState({
+            collapsed,
+            firstHide: collapsed,
+            mode: collapsed ? 'vertical' : 'inline',
+        });
+    };
+    openMenu = v => {
+       // console.log(v);
+        this.setState({
+            openKey: v[v.length - 1],
+            firstHide: false,
+        })
+    };
   componentDidMount(){
-       console.log('左边1')
+      // console.log('左边1')
         window.onhashchange = ()=>{
-            console.log(window.location.hash)
-            console.log('执行1')
+            // console.log(window.location.hash)
+            // console.log('执行1')
             this.setState({
                 hash:window.location.hash
             });
         }
     }
+
   render () {
+    //  console.log(menus)
+    //  console.log('-------------------')
     return (
       <Router >
       <Layout style={{ minHeight: '100vh' }}>
@@ -46,38 +72,13 @@ class App extends Component {
               collapsed={this.state.collapsed}
               onCollapse={this.onCollapse}
             >
-                <div className="logo" />
-                <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline">
-                  <Menu.Item key="1">
-                    <Icon type="home" />
-                    <span> <NavLink to="/" className="app-index">首页</NavLink> </span>
-                  </Menu.Item>
-                  <Menu.Item key="2">
-                    <Icon type="desktop" />
-                    {/*<span onClick={ this.handleRouterPush.bind(this, '/list') }> </span> */}
-                    <span><NavLink to="/list" className="app-index" >表单页</NavLink></span>
-                  </Menu.Item>
-                  <SubMenu
-                    key="sub1"
-                    title={<span><Icon type="user"/><span>列表页</span></span>}
-                  >
-                    <Menu.Item key="3"><NavLink to="/form" className="app-index" >列表详情</NavLink></Menu.Item>
-                    <Menu.Item key="4">列表展示</Menu.Item>
-                    <Menu.Item key="5">Alex</Menu.Item>
-                  </SubMenu>
-                  <SubMenu
-                    key="sub2"
-                    title={<span><Icon type="team"/><span>异常页</span></span>}
-                  >
-                    <Menu.Item key="6">403</Menu.Item>
-                    <Menu.Item key="8">406</Menu.Item>
-                  </SubMenu>
-                  <Menu.Item key="9">
-                    <Icon type="file" />
-                    <span>File</span>
-                  </Menu.Item>
-                </Menu>
-              </Sider>
+            <div className="logo" />
+              <SiderMenu
+                menus={menus}
+                theme="dark"
+                mode="inline"
+            />
+           </Sider>
         <Layout>
           <Header style={{ background: '#fff', padding: 0 , paddingLeft: '60%'}} >
              <Search
@@ -104,9 +105,7 @@ class App extends Component {
                 <RouterIndex />
             </ContentMain>*/}
             <div style={{minHeight: 360 }}>          
-              <Route exact path="/" component={IndexMain}></Route>
-              <Route exact path="/list" component={List}></Route>
-              <Route exact path="/form" component={Form}></Route>
+              <Routes  />
             </div>
           </Content>
           <Footer style={{ textAlign: 'center' }}>

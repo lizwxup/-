@@ -16,10 +16,10 @@ class Form extends Component{
     }
     
     onChange (date, dateString) {
-        console.log('wwwwwwww')
+       // console.log('wwwwwwww')
     }
     onChangeRadio (e) {
-        console.log(e.target.value)
+        //console.log(e.target.value)
         if (e.target.value === 2 ) {
           this.setState({
             display:'block',
@@ -34,22 +34,22 @@ class Form extends Component{
         })
     }
     Submit (e) {
-        console.log(e)
-        console.log(this.refs.basic.props.value)
-        console.log(this.refs.titleCont.props.value)
-        console.log(this.refs)
+        // console.log(e)
+        // console.log(this.refs.basic.props.value)
+        // console.log(this.refs.titleCont.props.value)
+        // console.log(this.refs)
     }
     handelChange (e) {
         this.setState({
             basicValue:e.target.value,  
             titleCont:e.target.value
         })
-        console.log(this.refs.basic)
-        console.log('swwwwwwwwww')
+        // console.log(this.refs.basic)
+        // console.log('swwwwwwwwww')
     }
     onChangerangePicker (value, dateString) {
-        console.log(value)
-        console.log(dateString)
+        // console.log(value)
+        // console.log(dateString)
     }
     render () {
         return (

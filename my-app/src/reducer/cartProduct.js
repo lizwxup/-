@@ -1,4 +1,4 @@
-import { ADD_TO_CART ,UPDATE_CART, DELETE_FROM_CART,addCart ,deleteCart,updateCart} from '../actions/index'
+import { ADD_TO_CART ,UPDATE_CART, DELETE_FROM_CART} from '../actions/index'
 
 const initialState = {
   cart: [
@@ -15,7 +15,6 @@ const initialState = {
   ]
 }
 export   function reducer(state=initialState,action){
-    console.log(action.type)
     return state
 }   
 export   function produceReducer(state = initialState ,action) {

@@ -8,25 +8,21 @@ import EchartsPie from './echarts/echartsPie'
 import EchartsLine from './echarts/echartsLine'
 import EchartsSecond from './echarts/echartsSecond'
 import EchartsPieStyle from './echarts/echartsPieStyle'
+import echarts from 'echarts/lib/echarts';
+import  'echarts/lib/chart/bar';
+// 引入提示框和标题组件
+import 'echarts/lib/component/tooltip';
+import 'echarts/lib/component/title';
+import RankList from './rankList'
 import '../css/index.css'
 const TabPane = Tabs.TabPane;
 
 class IndexMain extends Component{
      gutters = {};
      colCounts = {};
-     rankListData = [
-        {id: 1, content: 'Hello World1', num: '230000'},
-        {id: 2, content: 'Hello World2', num: '54200'},
-        {id: 3, content: '这是一个content', num: '542000'},
-        {id: 4, content: '这是一个content1', num: '8585000'},
-     ]
-     
+  
     //checked=true;
-     getInitialState () {
-        return {
-            checked: true
-        };
-     }
+
      constructor(){
         super();
         this.state={
@@ -36,33 +32,30 @@ class IndexMain extends Component{
                 {item:'内容二'},
                 {item:'内容三'}
             ],
-             list : ['','',''],
+            list : ['','',''],
             currentIndex:0
         };
         [8, 16, 24, 32, 40, 48].forEach((value, i) => { this.gutters[i] = value; });
         [2, 3, 4, 6, 8, 12].forEach((value, i) => { this.colCounts[i] = value; });
-       this.infoList = [15022, 200, 400, 300, 690, 100,100,120,500,40,30,500]
+        this.infoList1 = [15022, 200, 400, 300, 690, 100,100,120,500,40,30,500]
+        this.infoList = [100, 100, 100, 300, 690, 100,100,120,500,40,30,500]
     }
     //切换选项卡的时候
     changeTabPosition () {
-        //console.log('是谁我是我')
-        //this.refs.getSwordButton.initPie([150, 200, 400, 300, 690, 100,100,120,500,40,30,500])
-       // let myChart = this.$echarts.init(document.getElementById('main'));
-                // 绘制图表
-        //receiveChart.setOption({});
-
-        //console.log(this.refs.getSwordButton)
-        //console.log(this.refs.getSwordButton)
+    //    console.log('是谁我是我')
+       //this.initPie();
+        this.refs.getSwordButton.initPie(this.infoList)
     }
     onChildChanged (newState) {
-        console.log(newState+'子传给父级')
+        // console.log(newState+'子传给父级')
     }
     componentDidMount(){
         var gutterKey = this.state.gutterKey+55
         // this.setState({
         //     gutterKey:this.state.gutterKey+55
         // })
-        console.log( gutterKey+'swswswswsw')
+       //this.initPie()
+       console.log( gutterKey+'swswswswsw')
     }
   handleClick(index){
     this.setState({ currentIndex:index});
@@ -115,11 +108,11 @@ class IndexMain extends Component{
          this.state.tabList.forEach(function(item,index){
                 tabsContent.push(<li  key={index.toString()} style={{width:100,color:'blue',display:'inline-block'}}>{item.item}</li>)
          })
-        var rankList = []
+        /*var rankList = []
         this.rankListData.forEach(function(item,index){
             rankList.push(<div  key={index.toString()}  style={{ display:'flex',justifyContent:'space-between',marginBottom:15,width:'100%'}}><div><span className="rank-name">{index+1}</span>{item.content}</div>
                           <div className="rank-num">{item.num}</div></div>)
-        })
+        })*/
         return (
             <div>           
                 {/*<Row gutter={16}>
@@ -135,10 +128,12 @@ class IndexMain extends Component{
                         <TabPane tab={<span><Icon type="area-chart"/>销售额</span>} key="1">
                             <div style={{display:'flex'}}>
                                 <div style={{width:'70%'}}>
+                                   {/*<div id="main" style={{width: 500, height: 400 }} option={this.props.infoList}></div>*/}
                                     <Echarts ref="getSwordButton"  infoList={this.infoList} callbackParent={this.onChildChanged}></Echarts>
                                 </div>
                                 <div style={{marginLeft:50,width:'30%'}}>
-                                    {rankList}
+                                    {/*{rankList}*/}
+                                    <RankList></RankList>
                                    {/*<div style={{ display:'flex',justifyContent:'space-between',marginBottom:15,width:'100%'}}> 
                                         <div><span className="rank-name">1</span>{rankList}  </div>
                                         <div className="rank-num">230000</div>  
@@ -150,11 +145,13 @@ class IndexMain extends Component{
                             访问页面
                              <div style={{display:'flex'}}>
                                 <div style={{width:'70%'}}>
-                                    <EchartsSecond ref="getSwordButton" checked={this.checked}   callbackParent={this.onChildChanged}></EchartsSecond>
-                                     {/*<Echarts ref="getSwordButton"  infoList={this.infoList1} callbackParent={this.onChildChanged}></Echarts>*/}
+                                    {/*<EchartsSecond ref="getSwordButton" checked={this.checked}   callbackParent={this.onChildChanged}></EchartsSecond>*/}
+                                    <Echarts ref="getSwordButton"  infoList={this.infoList1} callbackParent={this.onChildChanged}></Echarts>
+                                    {/*<div id="main" style={{width: 500, height: 400 }} option={this.props.infoList}></div>*/}
                                 </div>
                                 <div style={{marginLeft:50,width:'30%'}}>
-                                    {rankList}
+                                    {/*{rankList}*/}
+                                     <RankList></RankList>
                                    {/* <div style={{display:'flex',justifyContent:'space-between',marginBottom:15,width:'100%'}}> 
                                         <div><span className="rank-name">1</span>{rankList}  </div>
                                         <div className="rank-num">230000</div>  
@@ -197,12 +194,12 @@ class IndexMain extends Component{
                  <div style={{background:'#fff',padding:10,marginTop:15}}>
                      {/*<Tabs defaultActiveKey="1"  >
                           {tabsList}
-                     </Tabs> */}   
+                     </Tabs>*/}   
                     <div  id="outer">
                         <ul  id="tab" >
                            { this.state.list.map((val,index) => {
                               return (<List currentClass={this.currentClass.bind(this)} handleClick={this.handleClick.bind(this)} val={val} key={index} index={index} /> )
-                          })
+                           })
                          }
                         </ul>
                         <div id="content">
@@ -246,7 +243,7 @@ class Content extends Component{
         return(
             <div className={this.props.contentClass(this.props.index)}>
                 {this.props.val} 
-                <EchartsLine></EchartsLine>
+                <EchartsLine id='ss'></EchartsLine>
             </div>
         )
     }

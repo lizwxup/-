@@ -48,8 +48,8 @@ class EchartsTest extends Component {
             }]
         };
         myChart.setOption(option);
-        console.log('绑定的数据')
-        console.log(data)
+       // console.log('绑定的数据')
+      //  console.log(data)
         window.addEventListener('resize', this.onWindowResize)
     }
     onWindowResize () {

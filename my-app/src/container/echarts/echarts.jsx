@@ -7,13 +7,30 @@ import 'echarts/lib/component/title';
 class EchartsTest extends Component {
     constructor(props) {
         super(props)
-        this.initPie = this.initPie.bind(this)    
+        // console.log(props)
+        // console.log('props的值')
+        //this.initPie = this.initPie.bind(this)    
+        this.state = {
+            someThings: props.infoList
+        };
+        this.infoList = [100, 100, 100, 300, 690, 100,100,120,500,40,30,500]
+    }
+    componentWillReceiveProps(nextProps) {
+        this.setState({someThings: nextProps.infoList});
+    }
+    shouldComponentUpdate(nextProps, nextState) {
+        // console.log(nextProps)
+        // console.log(nextState)
+        // console.log('nextProps && nextState')
+        return false
     }
     initPie (data) {
-       console.log('checked 的选择性'+this.props.infoList)
+      // console.log('checked 的选择性'+data)
        var myChart = echarts.init(document.getElementById('main'));
+     //    console.log(myChart)
+     //    console.log('mychart的值')
         // 绘制图表
-       var option = {
+       myChart.setOption({
             title: { text: '销售量' },
             tooltip: {},
             xAxis: {
@@ -47,24 +64,27 @@ class EchartsTest extends Component {
                 },
                 data: data
             }]
-        };
-        myChart.setOption(option);
-        console.log('绑定的数据')
+        })
+        // myChart.setOption(option);
+        // console.log('绑定的数据')
+        // console.log(option)
         // console.log(data)
-        window.addEventListener('resize', this.onWindowResize)
+      //  window.addEventListener('resize', this.onWindowResize)
     }
-    onWindowResize () {
-        var myChart = echarts.init(document.getElementById('main'));
-        myChart.resize();
-    };   
-    // componentDidUpdate() {
-    //     this.initPie([100111, 200, 400, 300, 690, 1000,200,120,500,40,50,700])
-    // } 
+    // onWindowResize () {
+    //     var myChart = echarts.init(document.getElementById('main'));
+    //     myChart.resize();
+    // };   
+    componentDidUpdate() {
+        this.initPie(this.props.infoList)
+    } 
     // componentWillMount() {
     //     this.initPie([30, 200, 400, 300, 690, 1000,200,120,500,40,50,700])
     // }
     componentDidMount() {
-        this.initPie([30, 200, 400, 300, 690, 1000,200,120,500,40,50,700])
+        // console.log(this.props)
+        // console.log('swwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww')
+        this.initPie(this.props.infoList)
     }
 
     onTextChange () {
@@ -83,22 +103,29 @@ class EchartsTest extends Component {
             console.log(error)
        })
     }
+    handleClick () {
+        // console.log(this.props.infoList)
+        this.initPie([10, 100, 400, 300, 690, 1000,200,120,500,40,50,700])
+        // console.log('点击事件的按钮')
+    }
     render () {
         //console.log('表格中所传过来的值：'+this.props.checked)
-        var  infoList = this.props.infoList;
+        var infoList = this.props;
           //let infoList = this.state.infoList;
-          console.log(infoList)
+        //   console.log(infoList)
+        //   console.log('切换传过来的值')
         return (
             <div>
                 {/*<button onClick={this.onTextChange.bind(this)}>点击事件</button>*/}
-                <div  id="main" style={{width: '100%', height: 400 }} ></div>
+                
+                <div id="main" style={{width: '100%', height: 400 }} option={this.props.infoList}></div>
+                <button onClick={this.handleClick.bind(this)}>获取数据</button>
                 {/*{
                 infoList.map((item, index)=>{
                     return  <div key={index}  id="main" style={{width: '100%', height: 400 }} > swswsw</div>
                 })
               }*/}
             </div>
-          
         );
     }
 }

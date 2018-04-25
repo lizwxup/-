@@ -40,7 +40,6 @@ class TableList extends Component {
         }];
 
     render () {
-        console.log(this.columns)
         return (
             <div> 
                 <Table columns={this.columns} dataSource={this.data}  bordered size="small" />

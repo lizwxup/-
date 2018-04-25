@@ -32,7 +32,7 @@ class EchartsPie extends Component {
             normal : {
                 label : {
                     formatter : function (params){
-                        console.log(100 - params.value)
+                       // console.log(100 - params.value)
                         return 100 - params.value + '%'
                     },
                     textStyle: {
